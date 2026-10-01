@@ -10,7 +10,18 @@ docker run --rm -v "$PWD":/src -w /src/Jellyfin.Plugin.MovieIntro mcr.microsoft.
   dotnet publish -c Release -o /src/out
 ```
 
-## Install
+## Release
+
+Publish a GitHub release with a tag like `v0.1.0.0`. The `Release` workflow builds the plugin, attaches
+`movie-intro_<version>.zip` to the release and adds the version to `manifest.json` on `main`.
+
+## Install from the plugin repository
+
+Dashboard → Plugins → Repositories → add
+`https://raw.githubusercontent.com/DRIgnazGortngschirl/jellyfin-plugin-movieintro/main/manifest.json`,
+then install *Movie Intro* from the catalog, restart Jellyfin and continue with step 1 and 3–4 below.
+
+## Install manually
 
 1. Put the intro clip in its own folder and mount it into the Jellyfin container read-only, e.g.
    `/mnt/tank/jellyfin-intros:/intros:ro`.
