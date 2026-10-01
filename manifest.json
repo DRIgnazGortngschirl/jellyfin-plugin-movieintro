@@ -1,0 +1,20 @@
+[
+  {
+    "guid": "6f1c2a0e-5b7d-4c1e-9a43-2d8e7f0b1c55",
+    "versions": [
+      {
+        "version": "0.1.0.1",
+        "changelog": "",
+        "targetAbi": "12.1.0.0",
+        "sourceUrl": "https://github.com/DRIgnazGortngschirl/jellyfin-plugin-movieintro/releases/download/v0.1.0.1/movie-intro_0.1.0.1.zip",
+        "checksum": "1f6a29ec3ddc5da926c2162b5c923a07",
+        "timestamp": "2026-10-01T17:39:09Z"
+      }
+    ],
+    "name": "Movie Intro",
+    "description": "",
+    "overview": "Intro before movies (cinema mode)",
+    "owner": "local",
+    "category": "General"
+  }
+]
