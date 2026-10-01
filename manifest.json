@@ -3,6 +3,14 @@
     "guid": "6f1c2a0e-5b7d-4c1e-9a43-2d8e7f0b1c55",
     "versions": [
       {
+        "version": "0.3.0.0",
+        "changelog": "",
+        "targetAbi": "12.1.0.0",
+        "sourceUrl": "https://github.com/DRIgnazGortngschirl/jellyfin-plugin-movieintro/releases/download/v0.3.0.0/movie-intro_0.3.0.0.zip",
+        "checksum": "871263c9b0ba67fed23d62b1331a6a47",
+        "timestamp": "2026-10-01T19:00:56Z"
+      },
+      {
         "version": "0.2.0.1",
         "changelog": "",
         "targetAbi": "12.1.0.0",
@@ -28,7 +36,7 @@
       }
     ],
     "name": "Movie Intro",
-    "description": "Plays an intro clip of your choice before movies and/or series episodes using Jellyfin's cinema-mode intro mechanism, and hides the library that holds the clip from every user's home screen.",
+    "description": "Plays an intro clip from /intros before movies and/or series episodes using Jellyfin's cinema-mode intro mechanism. Pick the clip from a dropdown, rescan the intro folder from the settings page, and keep the intro library hidden from every user's home screen.",
     "overview": "Intro before movies and series episodes (cinema mode)",
     "owner": "DRIgnazGortngschirl",
     "category": "General"
