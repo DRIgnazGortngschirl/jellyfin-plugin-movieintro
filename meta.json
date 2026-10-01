@@ -1,7 +1,7 @@
 {
   "category": "General",
-  "changelog": "Choose the intro clip from a dropdown; no default clip path. Intros for series episodes (every episode, first of each season or first of the series). Search helpers for the id lists.",
-  "description": "Plays an intro clip of your choice before movies and/or series episodes using Jellyfin's cinema-mode intro mechanism, and hides the library that holds the clip from every user's home screen.",
+  "changelog": "Simpler settings: choose a clip from /intros and switch intros on for movies and/or series episodes. The clip list is read from disk and unscanned files trigger a scan of the intro library; Rescan button. The intro library may hold several clips and is still hidden. Allow-lists and episode modes were removed.",
+  "description": "Plays an intro clip from /intros before movies and/or series episodes using Jellyfin's cinema-mode intro mechanism. Pick the clip from a dropdown, rescan the intro folder from the settings page, and keep the intro library hidden from every user's home screen.",
   "guid": "6f1c2a0e-5b7d-4c1e-9a43-2d8e7f0b1c55",
   "name": "Movie Intro",
   "overview": "Intro before movies and series episodes (cinema mode)",

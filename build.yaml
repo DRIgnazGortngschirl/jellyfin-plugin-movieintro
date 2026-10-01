@@ -6,17 +6,10 @@ targetAbi: "12.1.0.0"
 framework: "net10.0"
 overview: "Intro before movies and series episodes (cinema mode)"
 description: >
-  Plays an intro clip of your choice before movies and/or series episodes using Jellyfin's cinema-mode
-  intro mechanism. Pick the clip from a dropdown on the settings page, apply it to all movies or a list,
-  and to every episode, the first episode of each season or the first episode of a series, for all
-  series or selected series, seasons and episodes. The library that holds the clip is hidden from every
-  user's home screen.
+  Plays an intro clip from /intros before movies and/or series episodes using Jellyfin's cinema-mode intro mechanism. Pick the clip from a dropdown, rescan the intro folder from the settings page, and keep the intro library hidden from every user's home screen.
 category: "General"
 owner: "DRIgnazGortngschirl"
 artifacts:
 - "Jellyfin.Plugin.MovieIntro.dll"
 changelog: >
-  Choose the intro clip from a dropdown on the settings page; no default clip path any more.
-  Intros for series episodes (every episode, first of each season or first of the series), for all
-  series or selected series, seasons and episodes. Search helpers to add movies and series to the lists.
-  Id lists accept '#' comments.
+  Simpler settings: choose a clip from /intros and switch intros on for movies and/or series episodes. The clip list is read from disk and unscanned files trigger a scan of the intro library; Rescan button. The intro library may hold several clips and is still hidden. Allow-lists and episode modes were removed.

@@ -5,111 +5,36 @@
     <title>Movie Intro</title>
 </head>
 <body>
-    <div id="MovieIntroConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-checkbox,emby-textarea,emby-select">
+    <div id="MovieIntroConfigPage" data-role="page" class="page type-interior pluginConfigurationPage" data-require="emby-input,emby-button,emby-checkbox,emby-select">
         <div data-role="content">
             <div class="content-primary">
                 <h2>Movie Intro</h2>
-                <p>Plays an intro clip before movies and/or series episodes (cinema mode). The clip must live in a library folder that has been scanned. Clients need cinema mode switched on (web: Settings → Playback). Intros are not played when resuming.</p>
+                <p>Plays an intro clip from <code>/intros</code> before movies and/or series episodes (cinema mode). Clients need cinema mode switched on (web: Settings → Playback). Intros are not played when resuming.</p>
                 <form id="MovieIntroConfigForm">
-                    <h3>General</h3>
-                    <div class="checkboxContainer checkboxContainer-withDescription">
-                        <label class="emby-checkbox-label">
-                            <input id="Enabled" type="checkbox" is="emby-checkbox" />
-                            <span>Enabled</span>
-                        </label>
-                        <div class="fieldDescription checkboxFieldDescription">Master switch. When off, no intro is played anywhere.</div>
-                    </div>
-
-                    <h3>Intro clip</h3>
                     <div class="selectContainer">
-                        <label class="selectLabel" for="IntroSelect">Choose a video from your libraries</label>
-                        <select id="IntroSelect" is="emby-select">
+                        <label class="selectLabel" for="IntroPath">Intro clip</label>
+                        <select id="IntroPath" is="emby-select">
                             <option value="">Loading…</option>
                         </select>
-                        <div class="fieldDescription">Lists videos the server knows about (e.g. a <em>Home Videos</em> library holding the clip). Picking one fills in the path below.</div>
+                        <div id="ClipStatus" class="fieldDescription"></div>
+                    </div>
+                    <div>
+                        <button id="ScanButton" is="emby-button" type="button" class="raised emby-button">
+                            <span>Rescan /intros</span>
+                        </button>
+                    </div>
+
+                    <div class="checkboxContainer">
+                        <label class="emby-checkbox-label">
+                            <input id="ApplyToMovies" type="checkbox" is="emby-checkbox" />
+                            <span>Play before movies</span>
+                        </label>
                     </div>
                     <div class="checkboxContainer">
                         <label class="emby-checkbox-label">
-                            <input id="IncludeMoreTypes" type="checkbox" is="emby-checkbox" />
-                            <span>Also list movies and music videos</span>
-                        </label>
-                    </div>
-                    <div class="inputContainer">
-                        <label class="inputLabel inputLabelUnfocused" for="IntroPath">Intro clip path (as seen by the server)</label>
-                        <input id="IntroPath" type="text" is="emby-input" />
-                        <div class="fieldDescription">You can also type a path by hand, e.g. <code>/intros/intro.mp4</code>. The file must be inside a scanned library.</div>
-                    </div>
-
-                    <h3>Movies</h3>
-                    <div class="checkboxContainer checkboxContainer-withDescription">
-                        <label class="emby-checkbox-label">
-                            <input id="ApplyToMovies" type="checkbox" is="emby-checkbox" />
-                            <span>Play the intro before movies</span>
-                        </label>
-                    </div>
-                    <div id="MovieOptions">
-                        <div class="checkboxContainer checkboxContainer-withDescription">
-                            <label class="emby-checkbox-label">
-                                <input id="ApplyToAllMovies" type="checkbox" is="emby-checkbox" />
-                                <span>Apply to all movies (ignore the list below)</span>
-                            </label>
-                        </div>
-                        <div id="MovieListOptions">
-                            <div class="inputContainer">
-                                <label class="inputLabel inputLabelUnfocused" for="AllowedItemIds">Movie item IDs (one per line, text after # is a comment)</label>
-                                <textarea id="AllowedItemIds" is="emby-textarea" rows="8"></textarea>
-                            </div>
-                            <div class="inputContainer">
-                                <label class="inputLabel inputLabelUnfocused" for="MovieSearch">Find a movie</label>
-                                <input id="MovieSearch" type="text" is="emby-input" />
-                            </div>
-                            <button id="MovieSearchButton" is="emby-button" type="button" class="raised emby-button"><span>Search</span></button>
-                            <div class="selectContainer">
-                                <label class="selectLabel" for="MovieSearchResults">Search results</label>
-                                <select id="MovieSearchResults" is="emby-select"></select>
-                            </div>
-                            <button id="MovieAddButton" is="emby-button" type="button" class="raised emby-button"><span>Add to list</span></button>
-                        </div>
-                    </div>
-
-                    <h3>Series (episodes)</h3>
-                    <div class="checkboxContainer checkboxContainer-withDescription">
-                        <label class="emby-checkbox-label">
                             <input id="ApplyToEpisodes" type="checkbox" is="emby-checkbox" />
-                            <span>Play the intro before series episodes</span>
+                            <span>Play before series episodes</span>
                         </label>
-                    </div>
-                    <div id="SeriesOptions">
-                        <div class="selectContainer">
-                            <label class="selectLabel" for="EpisodeMode">Which episodes</label>
-                            <select id="EpisodeMode" is="emby-select">
-                                <option value="EveryEpisode">Every episode</option>
-                                <option value="FirstEpisodeOfEachSeason">Only the first episode of each season</option>
-                                <option value="FirstEpisodeOfSeries">Only the first episode of the series</option>
-                            </select>
-                            <div class="fieldDescription">"First" means the lowest episode number that exists in the library. Specials (season 0) never count as first.</div>
-                        </div>
-                        <div class="checkboxContainer checkboxContainer-withDescription">
-                            <label class="emby-checkbox-label">
-                                <input id="ApplyToAllSeries" type="checkbox" is="emby-checkbox" />
-                                <span>Apply to all series (ignore series and seasons in the list below)</span>
-                            </label>
-                        </div>
-                        <div class="inputContainer">
-                            <label class="inputLabel inputLabelUnfocused" for="AllowedSeriesIds">Series, season or episode IDs (one per line, text after # is a comment)</label>
-                            <textarea id="AllowedSeriesIds" is="emby-textarea" rows="8"></textarea>
-                            <div class="fieldDescription">Listed series and seasons follow the "Which episodes" setting. A listed episode always gets the intro.</div>
-                        </div>
-                        <div class="inputContainer">
-                            <label class="inputLabel inputLabelUnfocused" for="SeriesSearch">Find a series, season or episode</label>
-                            <input id="SeriesSearch" type="text" is="emby-input" />
-                        </div>
-                        <button id="SeriesSearchButton" is="emby-button" type="button" class="raised emby-button"><span>Search</span></button>
-                        <div class="selectContainer">
-                            <label class="selectLabel" for="SeriesSearchResults">Search results</label>
-                            <select id="SeriesSearchResults" is="emby-select"></select>
-                        </div>
-                        <button id="SeriesAddButton" is="emby-button" type="button" class="raised emby-button"><span>Add to list</span></button>
                     </div>
 
                     <div>
@@ -123,171 +48,84 @@
         <script type="text/javascript">
             (function () {
                 var pluginUniqueId = '6f1c2a0e-5b7d-4c1e-9a43-2d8e7f0b1c55';
-                var episodeModes = ['EveryEpisode', 'FirstEpisodeOfEachSeason', 'FirstEpisodeOfSeries'];
                 var page = document.querySelector('#MovieIntroConfigPage');
+                var savedPath = '';
+                var selection = '';
+                var refreshTimer = null;
 
                 function $(selector) {
                     return page.querySelector(selector);
                 }
 
-                function setOptions(select, entries) {
-                    select.innerHTML = '';
-                    entries.forEach(function (entry) {
-                        var option = document.createElement('option');
-                        option.value = entry.value;
-                        option.textContent = entry.text;
-                        select.appendChild(option);
-                    });
+                function addOption(select, value, text) {
+                    var option = document.createElement('option');
+                    option.value = value;
+                    option.textContent = text;
+                    select.appendChild(option);
                 }
 
-                function hasOption(select, value) {
-                    return Array.prototype.some.call(select.options, function (option) {
-                        return option.value === value;
-                    });
+                function setStatus(text) {
+                    $('#ClipStatus').textContent = text;
                 }
 
-                // Keep the clip dropdown in sync with the path text box.
-                function syncIntroSelect() {
-                    var select = $('#IntroSelect');
-                    var path = $('#IntroPath').value;
-                    select.value = path && hasOption(select, path) ? path : '';
+                // Reload the list a few times while a scan runs, until every clip is in the library.
+                function scheduleRefresh(attempt) {
+                    clearTimeout(refreshTimer);
+                    if (attempt < 6) {
+                        refreshTimer = setTimeout(function () {
+                            loadClips(attempt + 1);
+                        }, 5000);
+                    }
                 }
 
-                function loadVideos() {
-                    var select = $('#IntroSelect');
-                    var types = $('#IncludeMoreTypes').checked ? 'Video,MusicVideo,Movie' : 'Video';
-                    return ApiClient.getItems(ApiClient.getCurrentUserId(), {
-                        IncludeItemTypes: types,
-                        Recursive: true,
-                        Fields: 'Path',
-                        SortBy: 'SortName',
-                        Limit: 1000
-                    }).then(function (result) {
-                        var entries = [{ value: '', text: '— choose a video —' }];
-                        var seen = {};
-                        (result.Items || []).forEach(function (item) {
-                            if (item.Path && !seen[item.Path]) {
-                                seen[item.Path] = true;
-                                entries.push({ value: item.Path, text: item.Name + ' — ' + item.Path });
+                function loadClips(attempt) {
+                    var select = $('#IntroPath');
+                    var selected = selection;
+                    return ApiClient.getJSON(ApiClient.getUrl('MovieIntro/Clips')).then(function (result) {
+                        var clips = result.Clips || [];
+                        var found = false;
+                        var pending = 0;
+                        select.innerHTML = '';
+                        addOption(select, '', '— no intro —');
+                        clips.forEach(function (clip) {
+                            if (!clip.InLibrary) {
+                                pending++;
                             }
+                            found = found || clip.Path === selected;
+                            addOption(select, clip.Path, clip.Name + (clip.InLibrary ? '' : ' (not scanned yet)'));
                         });
-                        var current = $('#IntroPath').value;
-                        if (current && !seen[current]) {
-                            entries.splice(1, 0, { value: current, text: '(current) ' + current });
+                        if (selected && !found) {
+                            addOption(select, selected, (selected.indexOf('/intros/') === 0 ? '(missing) ' : '(outside /intros, will not play) ') + selected);
                         }
-                        setOptions(select, entries);
-                        syncIntroSelect();
+                        select.value = selected;
+
+                        if (!result.FolderExists) {
+                            setStatus(result.Folder + ' does not exist in the container. Mount your intro folder there.');
+                        } else if (!result.LibraryFound) {
+                            setStatus('No library for ' + result.Folder + ' yet. Add one (type Home Videos) with only that folder.');
+                        } else if (!clips.length) {
+                            setStatus('No video files in ' + result.Folder + '.');
+                        } else if (pending) {
+                            setStatus(pending + ' file(s) not scanned yet; the intro library is being scanned.');
+                            scheduleRefresh(attempt || 0);
+                        } else {
+                            setStatus(clips.length + ' clip(s) in ' + result.Folder + '.');
+                        }
                     }, function () {
-                        setOptions(select, [{ value: '', text: 'Could not load videos' }]);
+                        select.innerHTML = '';
+                        addOption(select, selection, selection ? selection : '— could not load clips —');
+                        setStatus('Could not list /intros.');
                     });
-                }
-
-                function normalizeId(id) {
-                    return String(id).replace(/-/g, '').toLowerCase();
-                }
-
-                function listedIds(text) {
-                    var ids = {};
-                    text.split(/\r?\n/).forEach(function (line) {
-                        line.split('#')[0].split(/[,;\s]+/).forEach(function (entry) {
-                            if (entry) {
-                                ids[normalizeId(entry)] = true;
-                            }
-                        });
-                    });
-                    return ids;
-                }
-
-                function pad(n) {
-                    return n == null ? '??' : (n < 10 ? '0' + n : String(n));
-                }
-
-                function itemLabel(item) {
-                    var label;
-                    if (item.Type === 'Episode') {
-                        label = (item.SeriesName || '') + ' S' + pad(item.ParentIndexNumber) + 'E' + pad(item.IndexNumber) + ' – ' + item.Name;
-                    } else if (item.Type === 'Season') {
-                        label = (item.SeriesName ? item.SeriesName + ' – ' : '') + item.Name;
-                    } else {
-                        label = item.Name + (item.ProductionYear ? ' (' + item.ProductionYear + ')' : '');
-                    }
-                    return (label + ' [' + item.Type + ']').replace(/[\r\n]+/g, ' ');
-                }
-
-                function search(term, types, results) {
-                    term = term.trim();
-                    if (!term) {
-                        return;
-                    }
-                    Dashboard.showLoadingMsg();
-                    ApiClient.getItems(ApiClient.getCurrentUserId(), {
-                        SearchTerm: term,
-                        IncludeItemTypes: types,
-                        Recursive: true,
-                        SortBy: 'SortName',
-                        Limit: 100
-                    }).then(function (result) {
-                        var items = result.Items || [];
-                        setOptions(results, items.length ? items.map(function (item) {
-                            return { value: item.Id, text: itemLabel(item) };
-                        }) : [{ value: '', text: 'Nothing found' }]);
-                        Dashboard.hideLoadingMsg();
-                    }, function () {
-                        setOptions(results, [{ value: '', text: 'Search failed' }]);
-                        Dashboard.hideLoadingMsg();
-                    });
-                }
-
-                function addSelected(results, textarea) {
-                    var option = results.options[results.selectedIndex];
-                    if (!option || !option.value) {
-                        return;
-                    }
-                    if (listedIds(textarea.value)[normalizeId(option.value)]) {
-                        return;
-                    }
-                    var text = textarea.value;
-                    if (text && !/\n$/.test(text)) {
-                        text += '\n';
-                    }
-                    textarea.value = text + option.value + ' # ' + option.textContent + '\n';
-                }
-
-                function updateVisibility() {
-                    $('#MovieOptions').style.display = $('#ApplyToMovies').checked ? '' : 'none';
-                    $('#MovieListOptions').style.display = $('#ApplyToAllMovies').checked ? 'none' : '';
-                    $('#SeriesOptions').style.display = $('#ApplyToEpisodes').checked ? '' : 'none';
-                }
-
-                function episodeModeName(value) {
-                    if (typeof value === 'number') {
-                        return episodeModes[value] || episodeModes[0];
-                    }
-                    if (typeof value === 'string') {
-                        if (/^\d+$/.test(value)) {
-                            return episodeModes[parseInt(value, 10)] || episodeModes[0];
-                        }
-                        if (episodeModes.indexOf(value) !== -1) {
-                            return value;
-                        }
-                    }
-                    return episodeModes[0];
                 }
 
                 page.addEventListener('pageshow', function () {
                     Dashboard.showLoadingMsg();
                     ApiClient.getPluginConfiguration(pluginUniqueId).then(function (config) {
-                        $('#Enabled').checked = config.Enabled;
-                        $('#IntroPath').value = config.IntroPath || '';
+                        savedPath = config.IntroPath || '';
+                        selection = savedPath;
                         $('#ApplyToMovies').checked = config.ApplyToMovies;
-                        $('#ApplyToAllMovies').checked = config.ApplyToAllMovies;
-                        $('#AllowedItemIds').value = config.AllowedItemIds || '';
                         $('#ApplyToEpisodes').checked = config.ApplyToEpisodes;
-                        $('#EpisodeMode').value = episodeModeName(config.EpisodeMode);
-                        $('#ApplyToAllSeries').checked = config.ApplyToAllSeries;
-                        $('#AllowedSeriesIds').value = config.AllowedSeriesIds || '';
-                        updateVisibility();
-                        return loadVideos();
+                        return loadClips(0);
                     }).then(function () {
                         Dashboard.hideLoadingMsg();
                     }, function () {
@@ -295,54 +133,31 @@
                     });
                 });
 
-                $('#IntroSelect').addEventListener('change', function () {
-                    if (this.value) {
-                        $('#IntroPath').value = this.value;
-                    }
-                });
-                $('#IntroPath').addEventListener('input', syncIntroSelect);
-                $('#IncludeMoreTypes').addEventListener('change', loadVideos);
-
-                ['#ApplyToMovies', '#ApplyToAllMovies', '#ApplyToEpisodes'].forEach(function (selector) {
-                    $(selector).addEventListener('change', updateVisibility);
+                page.addEventListener('pagehide', function () {
+                    clearTimeout(refreshTimer);
                 });
 
-                $('#MovieSearchButton').addEventListener('click', function () {
-                    search($('#MovieSearch').value, 'Movie', $('#MovieSearchResults'));
-                });
-                $('#MovieAddButton').addEventListener('click', function () {
-                    addSelected($('#MovieSearchResults'), $('#AllowedItemIds'));
-                });
-                $('#SeriesSearchButton').addEventListener('click', function () {
-                    search($('#SeriesSearch').value, 'Series,Season,Episode', $('#SeriesSearchResults'));
-                });
-                $('#SeriesAddButton').addEventListener('click', function () {
-                    addSelected($('#SeriesSearchResults'), $('#AllowedSeriesIds'));
+                $('#IntroPath').addEventListener('change', function () {
+                    selection = this.value;
                 });
 
-                // Enter in a search box searches instead of submitting the form.
-                [['#MovieSearch', '#MovieSearchButton'], ['#SeriesSearch', '#SeriesSearchButton']].forEach(function (pair) {
-                    $(pair[0]).addEventListener('keydown', function (e) {
-                        if (e.key === 'Enter') {
-                            e.preventDefault();
-                            $(pair[1]).click();
-                        }
+                $('#ScanButton').addEventListener('click', function () {
+                    ApiClient.ajax({ type: 'POST', url: ApiClient.getUrl('MovieIntro/Scan') }).then(function () {
+                        setStatus('Scanning /intros…');
+                        scheduleRefresh(0);
+                    }, function () {
+                        setStatus('No library for /intros yet. Add one (type Home Videos) with only that folder.');
                     });
                 });
 
                 $('#MovieIntroConfigForm').addEventListener('submit', function (e) {
                     Dashboard.showLoadingMsg();
                     ApiClient.getPluginConfiguration(pluginUniqueId).then(function (config) {
-                        config.Enabled = $('#Enabled').checked;
-                        config.IntroPath = $('#IntroPath').value.trim();
+                        config.IntroPath = $('#IntroPath').value;
                         config.ApplyToMovies = $('#ApplyToMovies').checked;
-                        config.ApplyToAllMovies = $('#ApplyToAllMovies').checked;
-                        config.AllowedItemIds = $('#AllowedItemIds').value;
                         config.ApplyToEpisodes = $('#ApplyToEpisodes').checked;
-                        config.EpisodeMode = episodeModeName($('#EpisodeMode').value);
-                        config.ApplyToAllSeries = $('#ApplyToAllSeries').checked;
-                        config.AllowedSeriesIds = $('#AllowedSeriesIds').value;
                         ApiClient.updatePluginConfiguration(pluginUniqueId, config).then(function (result) {
+                            savedPath = config.IntroPath;
                             Dashboard.processPluginConfigurationUpdateResult(result);
                         });
                     });

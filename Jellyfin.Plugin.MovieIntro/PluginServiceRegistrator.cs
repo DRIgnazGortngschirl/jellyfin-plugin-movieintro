@@ -14,7 +14,9 @@ public class PluginServiceRegistrator : IPluginServiceRegistrator
     /// <inheritdoc />
     public void RegisterServices(IServiceCollection serviceCollection, IServerApplicationHost applicationHost)
     {
-        serviceCollection.AddHostedService<IntroLibraryHider>();
-        serviceCollection.AddScoped<IEventConsumer<UserCreatedEventArgs>, IntroLibraryHider>();
+        serviceCollection.AddSingleton<IntroLibrary>();
+        serviceCollection.AddSingleton<IntroLibraryHider>();
+        serviceCollection.AddHostedService(sp => sp.GetRequiredService<IntroLibraryHider>());
+        serviceCollection.AddScoped<IEventConsumer<UserCreatedEventArgs>>(sp => sp.GetRequiredService<IntroLibraryHider>());
     }
 }

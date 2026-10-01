@@ -10,7 +10,7 @@ using MediaBrowser.Model.Serialization;
 namespace Jellyfin.Plugin.MovieIntro;
 
 /// <summary>
-/// Plays an admin-chosen intro clip before movies and/or series episodes via Jellyfin's cinema-mode intro mechanism.
+/// Plays an intro clip from /intros before movies and/or series episodes via Jellyfin's cinema-mode intro mechanism.
 /// </summary>
 public class Plugin : BasePlugin<PluginConfiguration>, IHasWebPages
 {
