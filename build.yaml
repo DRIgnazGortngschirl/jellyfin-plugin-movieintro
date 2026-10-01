@@ -1,0 +1,16 @@
+---
+name: "Movie Intro"
+guid: "6f1c2a0e-5b7d-4c1e-9a43-2d8e7f0b1c55"
+version: "0.1.0.0"
+targetAbi: "12.1.0.0"
+framework: "net10.0"
+overview: "Intro before movies (cinema mode)"
+description: >
+  Plays an intro clip before allow-listed (or all) movies using Jellyfin's cinema-mode intro
+  mechanism, and hides the library that holds the clip from every user's home screen.
+category: "General"
+owner: "local"
+artifacts:
+- "Jellyfin.Plugin.MovieIntro.dll"
+changelog: >
+  Initial version.
