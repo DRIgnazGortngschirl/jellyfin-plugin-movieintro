@@ -4,7 +4,7 @@ guid: "6f1c2a0e-5b7d-4c1e-9a43-2d8e7f0b1c55"
 version: "0.1.0.0"
 targetAbi: "12.1.0.0"
 framework: "net10.0"
-overview: "Intro before movies (cinema mode)"
+overview: "Intro before movies and series episodes (cinema mode)"
 description: >
   Plays an intro clip of your choice before movies and/or series episodes using Jellyfin's cinema-mode
   intro mechanism. Pick the clip from a dropdown on the settings page, apply it to all movies or a list,
