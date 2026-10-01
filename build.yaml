@@ -9,7 +9,7 @@ description: >
   Plays an intro clip before allow-listed (or all) movies using Jellyfin's cinema-mode intro
   mechanism, and hides the library that holds the clip from every user's home screen.
 category: "General"
-owner: "local"
+owner: "DRIgnazGortngschirl"
 artifacts:
 - "Jellyfin.Plugin.MovieIntro.dll"
 changelog: >
